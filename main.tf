@@ -255,3 +255,6 @@ resource "aws_instance" "DB_instance" {
 }
 
 
+====================================================================== Ref to Create EC2 Instance using variables ======================================================
+
+https://awstip.com/create-an-ec2-instance-using-terraform-7606cba03d2c
