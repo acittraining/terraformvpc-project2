@@ -1,7 +1,9 @@
 
 #vpc resource
 resource "aws_vpc" "vpc" {
-  cidr_block = var.vpccidr
+cidr_block = var.vpccidr
+instance_tenancy     = "default"
+enable_dns_hostnames = "true"
 
   # cidr block iteration found in the terraform.tfvars file
   tags = {
