@@ -190,3 +190,59 @@ resource "aws_route_table_association" "prirtas3" {
   route_table_id = aws_route_table.routetableprivate.id
 
 }
+
+
+==================================================== Create Security Group ==================================================================
+resource "aws_security_group" "demo-sg" {
+  name        = "demovpc-sg"
+  description = "Allow HTTP and SSH traffic via Terraform"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+======================================================================= Launch an EC2 Instance in the public Subnet ===================================================
+resource "aws_instance" "web_instance" {
+  ami                    = "ami-0ed752ea0f62749af"
+  instance_type          = "t2.micro"
+  subnet_id              = aws_subnet.pubsub1.id
+  key_name               = "EC2Tutorial"
+  vpc_security_group_ids = [aws_security_group.demo-sg.id]
+  tags = {
+    name = "Web-Server01"
+  }
+}
+
+======================================================================= Launch an EC2 Instance in the private Subnet ===================================================
+
+resource "aws_instance" "DB_instance" {
+  ami                    = "ami-0ed752ea0f62749af"
+  instance_type          = "t2.micro"
+  subnet_id              = aws_subnet.prisub1.id
+  key_name               = "EC2Tutorial"
+  vpc_security_group_ids = [aws_security_group.demo-sg.id]
+  tags = {
+    name = "DB-Server01"
+  }
+}
+
+
