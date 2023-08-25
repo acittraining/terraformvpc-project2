@@ -1,5 +1,5 @@
 # aws-terraform-vpc-project2
-
+https://www.linkedin.com/pulse/creating-aws-vpc-using-terraform-some-additional-features-mishra/
 Terraform Run: VPC
 Now we have the stage set with the code, the file structure and the prerequisites met, we can start pulling the Terraform strings to create our VPC.
 
