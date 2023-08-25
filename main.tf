@@ -243,15 +243,7 @@ resource "aws_instance" "web_instance" {
   subnet_id              = aws_subnet.pubsub1.id
   key_name               = "EC2Tutorial"
   vpc_security_group_ids = [aws_security_group.demo-sg.id]
-  user_data              = <<EOF
-  #!/bin/bash
-  yum update -y
-  yum install -y httpd
-  systemctl start httpd.service
-  systemctl enable httpd.service
-  cd /var/www/html/
-  echo "<html><body><h1>Welcome to AC-IT Training Solutions</h1></body></html>" > index.html 
-  EOF
+  user_data              = file("install_apache.sh")
   tags = {
     name = "Web-Server01"
   }
